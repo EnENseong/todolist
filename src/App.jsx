@@ -5,7 +5,7 @@ import Editor from './comcpnents/Editor'
 import List from './comcpnents/List'
 const mockData=[
   { 
-    id:0,
+    id:2,
     isDone:false,
     content: "react 공부하기",
     date : new Date().getTime(),
@@ -13,13 +13,13 @@ const mockData=[
   { 
     id:1,
     isDone:false,
-    content: "react 공부하기",
+    content: "밥먹기",
     date : new Date().getTime(),
   },
   { 
-    id:2,
+    id:0,
     isDone:false,
-    content: "react 공부하기",
+    content: "자기",
     date : new Date().getTime(),
   },
 ]
@@ -35,11 +35,25 @@ const onCreate = (content)=>{
   }
   setTodos([newTodo,...todos])
 }
+const onUpdate =(targetId)=>{
+  setTodos(todos.map((todo)=>
+    todo.id === targetId 
+    ?{...todo, isDone: !todo.isDone}
+    : todo
+  ))
+}
+const onDlete =(targetId)=>{
+  setTodos(todos.filter((todo)=>todo.id !== targetId))
+}
   return (
     <div className='App'>
       <Header />
       <Editor onCreate={onCreate}/>
-      <List />
+      <List 
+      todos={todos} 
+      onUpdate={onUpdate}
+      onDlete={onDlete}
+      />
     </div>
   )
 }
